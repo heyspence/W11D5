@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 export const LOAD_ITEMS = "items/LOAD_ITEMS";
 export const UPDATE_ITEM = "items/UPDATE_ITEM";
 export const REMOVE_ITEM = "items/REMOVE_ITEM";
@@ -24,6 +25,16 @@ const remove = (itemId, pokemonId) => ({
   itemId,
   pokemonId
 });
+
+
+export const getPokemonItems = (pokemonId) => async dispatch => {
+  const res = await fetch(`/api/pokemon/${pokemonId}/items`)
+
+  if(res.ok){
+    const items = await res.json();
+    dispatch(load(items, pokemonId));
+  }
+}
 
 const initialState = {};
 
